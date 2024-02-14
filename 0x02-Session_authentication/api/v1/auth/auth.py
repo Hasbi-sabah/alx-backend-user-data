@@ -4,6 +4,7 @@
 from flask import request
 from typing import List, TypeVar
 from fnmatch import fnmatch
+from os import getenv
 
 
 class Auth:
@@ -26,3 +27,9 @@ class Auth:
     def current_user(self, request=None) -> TypeVar("User"):
         """Retrieves the current user based on the provided request."""
         return None
+
+    def session_cookie(self, request=None):
+        """Retrieves a cookie value from a provided request."""
+        if not request:
+            return None
+        return request.cookies.get(getenv('SESSION_NAME'), None)
