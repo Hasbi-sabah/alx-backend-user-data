@@ -13,8 +13,9 @@ class SessionDBAuth(SessionExpAuth):
         session_id = super().create_session(user_id)
         if not session_id:
             return None
-        user_session = UserSession({'user_id': user_id,
-                                    'session_id': session_id})
+        args = {"user_id": user_id, "session_id": session_id}
+        user_session = UserSession(**args)
+        user_session.save()
         user_session.save_to_file()
         return session_id
 
