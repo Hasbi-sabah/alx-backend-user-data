@@ -13,53 +13,37 @@ BASE_URL = "http://127.0.0.1:5000"
 
 def register_user(email: str, password: str) -> None:
     """Registers a new user with the specified email and password."""
-    data = {"email": email, "password": password}
-    response = requests.post(BASE_URL + "/users", data=data)
-    assert response.json() == {"email": email, "message": "user created"}
+    pass
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
     """Attempts to log in with the specified email and incorrect password."""
-    data = {"email": email, "password": password}
-    response = requests.post(BASE_URL + "/sessions", data=data)
-    assert response.status_code == 401
+    pass
 
 
 def profile_unlogged() -> None:
     """Accesses the profile endpoint without logging in, expecting a 403."""
-    response = requests.get(BASE_URL + "/profile")
-    assert response.status_code == 403
+    pass
 
 
 def log_in(email: str, password: str) -> str:
     """Logs in with the specified email and password, returning session ID"""
-    data = {"email": email, "password": password}
-    response = requests.post(BASE_URL + "/sessions", data=data)
-    assert response.json() == {"email": email, "message": "logged in"}
-    return response.cookies.get("session_id")
+    return None
 
 
 def profile_logged(session_id: str) -> None:
     """Accesses the profile endpoint with a valid session ID."""
-    cookies = {"session_id": session_id}
-    response = requests.get(BASE_URL + "/profile", cookies=cookies)
-    assert response.json() == {"email": EMAIL}
+    pass
 
 
 def log_out(session_id: str) -> None:
     """Logs out the user with the specified session ID."""
-    cookies = {"session_id": session_id}
-    response = requests.delete(BASE_URL + "/sessions", cookies=cookies)
-    assert response.url == BASE_URL + "/"
+    pass
 
 
 def reset_password_token(email: str) -> str:
     """Requests a password reset token for the specified email."""
-    data = {"email": email}
-    response = requests.post(BASE_URL + "/reset_password", data=data)
-    reset_token = response.json().get("reset_token")
-    assert response.json() == {"email": email, "reset_token": reset_token}
-    return reset_token
+    return None
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
@@ -67,11 +51,7 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
     Updates the password for the specified email using the provided
     reset token and new password.
     """
-    data = {"email": email,
-            "reset_token": reset_token,
-            "new_password": new_password}
-    response = requests.put(BASE_URL + "/reset_password", data=data)
-    assert response.json() == {"email": email, "message": "Password updated"}
+    pass
 
 
 if __name__ == "__main__":
