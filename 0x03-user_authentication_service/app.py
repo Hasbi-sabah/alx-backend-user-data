@@ -10,13 +10,13 @@ app.url_map.strict_slashes = False
 
 
 @app.route("/")
-def welcome():
+def welcome() -> str:
     """base route"""
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=["POST"])
-def users():
+def users() -> str:
     """Handle a POST request to create a new user."""
     email, password = request.form.get("email"), request.form.get("password")
     try:
@@ -27,7 +27,7 @@ def users():
 
 
 @app.route("/sessions", methods=["POST"])
-def login():
+def login() -> str:
     """Handle a POST request to log in a user."""
     email, password = request.form.get("email"), request.form.get("password")
     if not AUTH.valid_login(email, password):
@@ -38,7 +38,7 @@ def login():
 
 
 @app.route("/sessions", methods=["DELETE"])
-def logout():
+def logout() -> str:
     """Handle a DELETE request to log out a user."""
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
@@ -49,7 +49,7 @@ def logout():
 
 
 @app.route("/profile")
-def profile():
+def profile() -> str:
     """Handle a GET request to return user profile"""
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
